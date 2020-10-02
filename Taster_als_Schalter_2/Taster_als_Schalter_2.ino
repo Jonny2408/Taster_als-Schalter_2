@@ -8,34 +8,32 @@ OneButton taster(8, true);
 boolean statusLED;
 
 
-void setup() 
+void setup()
 {
   pinMode(2, OUTPUT);  //LED an Pin 2
 
   taster.attachClick(Funktion_Taster);
-} 
+}
 
 void loop()
 {
   taster.tick();
 
-   
-  delay(10);  
+
+  delay(10);
 }
 
 void Funktion_Taster()
+
 {
-   if(digitalRead(Taster) == 1)
+  if (statusLED == 1)
   {
-    if(statusLED == 1)
-    {
-      digitalWrite(LED, LOW);
-      statusLED = 0;
-    }
-    else
-    {
-      digitalWrite(LED, HIGH);
-      statusLED = 1;
-    }
+    digitalWrite(LED, LOW);
+    statusLED = 0;
+  }
+  else
+  {
+    digitalWrite(LED, HIGH);
+    statusLED = 1;
   }
 }
