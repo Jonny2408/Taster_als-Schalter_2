@@ -4,33 +4,62 @@
 #define LED 2   //LED an Pin 2
 #define Taster 8  //Pulldown
 
-boolean statusLED;
+boolean statusLED = false;
 
 OneButton taster(Taster, false);
 
+
+byte led[9] = {2, 3, 4, 5, 6, 7, 8, 9};  //array für die Laufleiste
+
+byte ledZustand[6][8] =
+{
+  {1, 0, 0, 0, 0, 0, 0, 1},
+  {0, 1, 0, 0, 0, 0, 1, 0},
+  {0, 0, 1, 0, 0, 1, 0, 0},
+  {0, 0, 0, 1, 1, 0, 0, 0},
+  {0, 0, 1, 0, 0, 1, 0, 0},
+  {0, 1, 0, 0, 0, 0, 1, 0},
+};
 
 
 
 
 void setup()
 {
-  pinMode(2, OUTPUT);  //LED an Pin 2
 
-  taster.attachClick(Funktion_Taster);  // Wenn das Programm ein Signal am Taster Eingang wahrnimmt, springt er zu der Funktion
-}
+  taster.attachClick(Funktion_StartStop);  // Wenn das Programm ein Signal am Taster Eingang wahrnimmt, springt er zu der Funktion
+  {
 
-void loop()
-{
-  taster.tick();  //Abfrage des Tasters
+    for (byte i = 0; i < 8; i++)
+    {
+      pinMode(led[i], OUTPUT);
+    }
+  }
+  void loop()
+  {
+    taster.tick();  //Abfrage des Tasters
 
 
-  delay(10);
+    delay(10);
 
-digitalWrite(LED, statusLED);  //Status des LED Merkers/der LED Status ins digitalWrite einfügen und ausgeben
-}
+    if (statusLED = 1)
+    {
 
-void Funktion_Taster()
+      for (byte i = 0; i < 6; i++) //Zeilen
+      {
+        delay(150);
+        for (byte j = 0; j < 8; j++) //Spalten
+        {
 
-{
-  statusLED = !statusLED;   //Invertierung der statusLED   
-}
+          digitalWrite(led[j], ledZustand[i][j]);
+        }
+      }
+
+
+    }
+
+    void Funktion_StartStop()
+
+    {
+      statusLED = !statusLED;   //Invertierung der statusLED
+    }
